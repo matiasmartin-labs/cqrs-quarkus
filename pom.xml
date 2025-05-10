@@ -23,7 +23,7 @@
     </repository>
   </distributionManagement>
 
-  <!--repositories>
+  <repositories>
 
     <repository>
       <id>central</id>
@@ -31,11 +31,11 @@
     </repository>
 
     <repository>
-      <id>github-cqrs-core</id>
-      <url>https://maven.pkg.github.com/matiasmartin-labs/cqrs-core</url>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/matiasmartin-labs/*</url>
     </repository>
 
-  </repositories-->
+  </repositories>
 
   <dependencies>
     <dependency>
