@@ -8,12 +8,34 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <cqrs.core.version>1.0.0-SNAPSHOT</cqrs.core.version>
+    <cqrs.core.version>1.0.0</cqrs.core.version>
     <quarkus.arc.version>3.8.6.1</quarkus.arc.version>
     <jakarta.enterprise.version>4.0.1</jakarta.enterprise.version>
     <jakarta.transaction.version>2.0.1</jakarta.transaction.version>
     <lombok.version>1.18.38</lombok.version>
   </properties>
+
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/matiasmartin-labs/cqrs-quarkus</url>
+    </repository>
+  </distributionManagement>
+
+  <!--repositories>
+
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+
+    <repository>
+      <id>github-cqrs-core</id>
+      <url>https://maven.pkg.github.com/matiasmartin-labs/cqrs-core</url>
+    </repository>
+
+  </repositories-->
 
   <dependencies>
     <dependency>
