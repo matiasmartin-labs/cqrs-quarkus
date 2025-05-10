@@ -1,0 +1,52 @@
+name: release-preview
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Bump type: major, minor or patch'
+        required: true
+        default: 'patch'
+  pull_request:
+    branches:
+      - main
+    types:
+      - synchronize
+      - labeled
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  generate-preview:
+    if: (
+      github.event.pull_request.base.ref == 'main') && (
+      contains(join(github.event.pull_request.labels.*.name, ','), 'release-type/patch') ||
+      contains(join(github.event.pull_request.labels.*.name, ','), 'release-type/minor') ||
+      contains(join(github.event.pull_request.labels.*.name, ','), 'release-type/major')
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Determine release type
+        uses: matiasmartin-labs/gha-deployments/determine-release-type@main
+        id: release_type
+
+      - name: Determine next version
+        id: calculate_version
+        uses: matiasmartin-labs/gha-deployments/determine-next-version@main
+        with:
+          release-type: ${{ steps.release_type.outputs.type }}
+
+      - name: Comment on PR
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            # 🎉 Release Preview
+
+            ## 🚀 Next Version
+            ![Version](https://img.shields.io/badge/version-${{ steps.calculate_version.outputs.new-version-tag }}-brightgreen)
